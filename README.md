@@ -8,6 +8,11 @@ To install this plugin clone this repo into `$ZSH/custom/plugins` folder, then e
 ```
 plugins=(... hackintools)
 ```
+
+# Important note
+
+This plugin is still under development, some functions may not work or work improperly.
+
 ## Commands
 
 | Command    | Description                                             |
