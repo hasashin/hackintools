@@ -1,0 +1,50 @@
+function oc() {
+	local selfVersion="0.1.0-alpha"
+	local ocPaths
+
+	echo "Unofficial OpenCore management tool"
+	echo "Version $selfVersion"
+	echo 
+
+	if [[ $# > 0 ]]; then
+		if [[ $1 == "--version" ]]; then
+			which ocVersion > /dev/null
+			[[ $? -ne 0 ]] && autoload ocVersion
+			ocVersion
+			unfunction ocVersion
+			return $?
+		elif [[ $1 == "-h" || $1 == "--help" ]]; then
+			echo "Usage: $0 [options]"
+			echo "If no option is provided tool launches menu for managing OC instalation"
+			echo "Available options:"
+			echo "\t$0 --version\tshows OpenCore version stored in NVRAM and exits"
+			echo "\t$0 --help | -h\tprints this message and exits"
+			return 0
+		else 
+			echo "Unknown option \"$1\""
+			echo "run \"$0 --help\" to show available usage"
+			return -1
+		fi
+	fi
+
+	which ocVersion > /dev/null
+	[[ $? -ne 0 ]] && autoload ocVersion
+	ocVersion
+
+#	echo "Got Version: $ocRelType, $ocVerNumber, $ocRelDate"
+
+	for p in $(ls /Volumes); do
+		[[ -d $p/EFI/OC ]] && ocPaths=("$p/EFI/OC" $ocPaths)
+	done
+
+	if [[ -n $ocPath ]]; then
+		echo "Found OpenCore installations at"
+		for ocPath in $ocPaths; do
+			echo "\t$ocPath"
+		done
+	else
+		echo "OpenCore installation not found!"
+		echo "Make sure you mounted proper EFI partition"
+		return -1
+	fi
+}

@@ -1,0 +1,21 @@
+function ocVersion() {
+	local ocVersion=$(nvram 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:opencore-version 2> /dev/null)
+	
+	if [[ $ocVersion =~ "([A-Z]{3})-([0-9]{3})-([0-9]{4}-[0-1][0-9]-[0-3][0-9])$" ]]; then
+		if [[ $match[1] = "REL" ]]; then
+			ocRelType="RELEASE"
+		elif [[ $match[1] = "DEB" ]]; then
+			ocRelType="DEBUG"
+		else 
+			ocRelType="UNKNOWN"
+		fi
+		ocVerNumber="${match[2]:0:1}.${match[2]:1:1}.${match[2]:2}" 
+		ocRelDate=$match[3]
+		echo "OpenCore $ocVerNumber - $ocRelType"
+		echo "Release date: $ocRelDate"
+	else 
+		echo "There is no OpenCore found on your computer"
+		return -1
+	fi
+	return 0
+}
