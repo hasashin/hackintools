@@ -20,6 +20,7 @@ This plugin is still under development, some functions may not work or work impr
 |`openvs`    |Open file or folder in Visual Studio Code                |
 |`mountefi`  |List and mount EFI partitions found on the system        |
 |`umountefi` |Umount EFI partitions previously mounted via `mountefi`  |
+|`oc`        |Open OpenCore management tool                            |
 
 ---
 
