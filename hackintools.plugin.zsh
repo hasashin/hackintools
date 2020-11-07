@@ -27,7 +27,7 @@ function mountefi() {
 			return 0
 		else
 			echo "Unknown option: \"$key\""
-			echo "run: '$0 help' to show available usage."
+			echo "run: \"$0 help\" to show available usage"
 			return -1
 		fi
 	fi
@@ -61,4 +61,8 @@ function umountefi() {
 		done
 		rm -f "/tmp/mountedEfi" 2> /dev/null
 	fi
+}
+
+function oc() {
+	autoload -X
 }
