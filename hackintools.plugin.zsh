@@ -34,6 +34,7 @@ function mountefi() {
 	diskutil list -plist physical > $tempFile 2> /dev/null
 	if [[ -z "$guid" ]]; then
 
+		
 		#print usable information about EFI partitions
 
 		if [[ -n "$LISTONLY" ]]; then
@@ -46,8 +47,7 @@ function mountefi() {
 	mountDisk="/dev/$(cat $tempFile | grep -B 11 -h $guid | grep -ho 'disk.s.')"
 	rm -f $tempFile 2> /dev/null
 	sudo mkdir "/Volumes/EFI-$guid"
-	sudo mount -t msdos $mountDisk "/Volumes/EFI-$guid"
-	echo $mountDisk
+	sudo mount -t msdos $mountDisk "/Volumes/EFI-$guid" > /dev/null
 	[[ -e "/tmp/mountedEfi" ]] && echo "$mountDisk " >> "/tmp/mountedEfi" || echo "$mountDisk " > "/tmp/mountedEfi"
 	return 0
 }

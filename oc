@@ -47,4 +47,13 @@ function oc() {
 		echo "Make sure you mounted proper EFI partition"
 		return -1
 	fi
+
+	local quit=false
+	local choise
+	while quit do
+		read choise
+		if [[ choise == 'q' ]]; then
+			quit=true
+		fi
+	done
 }
